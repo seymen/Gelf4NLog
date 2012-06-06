@@ -50,7 +50,7 @@ namespace Gelf4NLog.UnitTest
                 var target = new NLogGelfTarget(transport, converter.Object) { HostIp = "127.0.0.1" };
                 target.WriteLogEventInfo(new LogEventInfo());
 
-                transportClient.Verify(t => t.Send(It.IsAny<byte[]>(), It.IsAny<Int32>(), It.IsAny<IPEndPoint>()), Times.Exactly(2));
+                transportClient.Verify(t => t.Send(It.IsAny<byte[]>(), It.IsAny<Int32>(), It.IsAny<IPEndPoint>()), Times.Exactly(4));
                 converter.Verify(c => c.GetJsonObject(It.IsAny<LogEventInfo>(), It.IsAny<string>()), Times.Once());
             }
         }
