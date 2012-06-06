@@ -4,7 +4,10 @@ Gelf4NLog is an [NLog] target implementation to push log messages to [GrayLog2].
 ## Solution
 Solution is comprised of 3 projects: *Target* is the actual NLog target implementation, *UnitTest* contains the unit tests for the NLog target, and *ConsoleRunner* is a simple console project created in order to demonstrate the library usage.
 ## Usage
-Add Gelf4NLog.Target.dll to your project.
+Use Nuget:
+```
+PM> Install-Package Gelf4NLog.Target
+```
 ### Configuration
 Here is a sample nlog configuration snippet:
 ```xml
