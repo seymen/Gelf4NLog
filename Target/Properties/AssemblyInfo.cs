@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Gelf4NLog.Target")]
 [assembly: AssemblyDescription("NLog Target for GrayLog2")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Ozan Seymen")]
 [assembly: AssemblyProduct("Gelf4NLog.Target")]
 [assembly: AssemblyCopyright("Copyright © 2012")]
 [assembly: AssemblyTrademark("")]
