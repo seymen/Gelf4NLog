@@ -34,8 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gelf4NLog.Target, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Gelf4NLog.Target.1.0.0.0\lib\net40\Gelf4NLog.Target.dll</HintPath>
+    <Reference Include="Gelf4NLog.Target, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Gelf4NLog.Target.1.0.0.1\lib\net40\Gelf4NLog.Target.dll</HintPath>
     </Reference>
     <Reference Include="LumenWorks.Framework.IO">
       <HintPath>..\packages\LumenWorks.Framework.IO\LumenWorks.Framework.IO.dll</HintPath>
