@@ -25,8 +25,8 @@ Here is a sample nlog configuration snippet:
 	<targets>
 	  <!-- Other targets (e.g. console) -->
     
-	  <target name="gelf" 
-			  xsi:type="Gelf" 
+	  <target name="graylog" 
+			  xsi:type="graylog" 
 			  hostip="192.168.1.7" 
 			  hostport="12201" 
 			  facility="console-runner"
@@ -34,7 +34,7 @@ Here is a sample nlog configuration snippet:
 	</targets>
 
 	<rules>
-	  <logger name="*" minlevel="Debug" writeTo="gelf" />
+	  <logger name="*" minlevel="Debug" writeTo="graylog" />
 	</rules>
 
 </nlog>
@@ -42,7 +42,7 @@ Here is a sample nlog configuration snippet:
 
 Options are the following:
 * __name:__ arbitrary name given to the target
-* __type:__ set this to "Gelf"
+* __type:__ set this to "graylog"
 * __hostip:__ IP address of the GrayLog2 server
 * __hostport:__ Port number that GrayLog2 server is listening on
 * __facility:__ The graylog2 facility to send log messages
