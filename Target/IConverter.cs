@@ -5,6 +5,6 @@ namespace Gelf4NLog.Target
 {
     public interface IConverter
     {
-        JObject GetJsonObject(LogEventInfo logEventInfo, string facility);
+        JObject GetGelfJson(LogEventInfo logEventInfo, string facility);
     }
 }

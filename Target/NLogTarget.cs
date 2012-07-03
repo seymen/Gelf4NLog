@@ -5,8 +5,8 @@ using Newtonsoft.Json;
 
 namespace Gelf4NLog.Target
 {
-    [Target("Gelf")]
-    public class NLogGelfTarget : TargetWithLayout
+    [Target("GrayLog")]
+    public class NLogTarget : TargetWithLayout
     {
         [Required]
         public string HostIp { get; set; }
@@ -19,13 +19,13 @@ namespace Gelf4NLog.Target
         public IConverter Converter { get; private set; }
         public ITransport Transport { get; private set; }
 
-        public NLogGelfTarget()
+        public NLogTarget()
         {
             Transport = new UdpTransport(new UdpTransportClient());
             Converter = new GelfConverter();
         }
 
-        public NLogGelfTarget(ITransport transport, IConverter converter)
+        public NLogTarget(ITransport transport, IConverter converter)
         {
             Transport = transport;
             Converter = converter;
@@ -38,7 +38,8 @@ namespace Gelf4NLog.Target
 
         protected override void Write(LogEventInfo logEvent)
         {
-            var jsonObject = Converter.GetJsonObject(logEvent, Facility);
+            var jsonObject = Converter.GetGelfJson(logEvent, Facility);
+            if (jsonObject == null) return;
             Transport.Send(HostIp, HostPort, jsonObject.ToString(Formatting.None, null));
         }
     }

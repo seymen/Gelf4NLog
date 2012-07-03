@@ -52,7 +52,7 @@
     <Compile Include="IConverter.cs" />
     <Compile Include="ITransport.cs" />
     <Compile Include="ITransportClient.cs" />
-    <Compile Include="NLogGelfTarget.cs" />
+    <Compile Include="NLogTarget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UdpTransport.cs" />
     <Compile Include="UdpTransportClient.cs" />

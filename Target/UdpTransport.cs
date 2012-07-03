@@ -36,20 +36,23 @@ namespace Gelf4NLog.Target
             var ipAddress = IPAddress.Parse(serverIpAddress);
             var ipEndPoint = new IPEndPoint(ipAddress, serverPort);
 
-            var gzipedMessage = GZipMessage(message);
+            var compressedMessage = CompressMessage(message);
 
-            if (MaxMessageSizeInUdp < gzipedMessage.Length)
+            if (compressedMessage.Length > MaxMessageSizeInUdp)
             {
-                var numberOfChunks = gzipedMessage.Length / MaxMessageSizeInChunk + 1;
-                if (numberOfChunks > MaxNumberOfChunksAllowed) return;
+                //Our compressed message is too big to fit in a single datagram. Need to chunk...
+                //https://github.com/Graylog2/graylog2-docs/wiki/GELF "Chunked GELF"
 
-                var messageId = GenerateMessageId(gzipedMessage);
+                var numberOfChunksRequired = compressedMessage.Length / MaxMessageSizeInChunk + 1;
+                if (numberOfChunksRequired > MaxNumberOfChunksAllowed) return;
 
-                for (var i = 0; i < numberOfChunks; i++)
+                var messageId = GenerateMessageId(compressedMessage);
+
+                for (var i = 0; i < numberOfChunksRequired; i++)
                 {
                     var skip = i * MaxMessageSizeInChunk;
-                    var messageChunkHeader = ConstructChunkHeader(messageId, i, numberOfChunks);
-                    var messageChunkData = gzipedMessage.Skip(skip).Take(MaxMessageSizeInChunk).ToArray();
+                    var messageChunkHeader = ConstructChunkHeader(messageId, i, numberOfChunksRequired);
+                    var messageChunkData = compressedMessage.Skip(skip).Take(MaxMessageSizeInChunk).ToArray();
 
                     var messageChunkFull = new byte[messageChunkHeader.Length + messageChunkData.Length];
                     messageChunkHeader.CopyTo(messageChunkFull, 0);
@@ -60,7 +63,7 @@ namespace Gelf4NLog.Target
             }
             else
             {
-                _transportClient.Send(gzipedMessage, gzipedMessage.Length, ipEndPoint);
+                _transportClient.Send(compressedMessage, compressedMessage.Length, ipEndPoint);
             }
         }
 
@@ -93,7 +96,7 @@ namespace Gelf4NLog.Target
         /// </summary>
         /// <param name="message">Message to be compressed</param>
         /// <returns>Compressed message in bytes</returns>
-        private static byte[] GZipMessage(String message)
+        private static byte[] CompressMessage(String message)
         {
             var compressedMessageStream = new MemoryStream();
             using (var gzipStream = new GZipStream(compressedMessageStream, CompressionMode.Compress))
