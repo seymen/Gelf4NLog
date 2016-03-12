@@ -63,3 +63,6 @@ Logger.Log(eventInfo);
 [NLog]: http://nlog-project.org/
 [GrayLog2]: http://graylog2.org/
 [Gelf]: http://graylog2.org/about/gelf
+
+##Contributing
+Would you be interested in contributing? All PRs are welcome but also see issue [#12](../../issues/12).
